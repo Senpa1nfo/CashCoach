@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-reboot.rtl.min.css">
+    <link rel="stylesheet" href="css/style.min.css">
+    <title>Cash Coach</title>
+</head>
+<body>
+    <!-- <section class="finances">
+        <div class="container">
+            <div class="statistics">
+                <button class="js-show-stats-day" onclick="stats.getDailyStats();">Статистика за день</button>
+                <button class="js-show-stats-week" onclick="stats.getWeeklyStats();">Статистика за тиждень</button>
+                <button class="js-show-stats-month" onclick="stats.getMonthlyStats();">Статистика за місяць</button>
+                <button class="js-show-stats-year" onclick="stats.getYearlyStats();">Статистика за рік</button>
+            </div>
+            <div class="wrapper">
+                <div class="wrapper__finances">
+                    <div class="wrapper__input-fields">
+                        <label for="js-input">Джерело доходу / Ціль витрати</label>
+                        <input class="js-input"></input>
+                        <label for="js-input-descr">Введіть суму</label>
+                        <input class="js-input-descr"></input>
+                    </div>
+                    <div class="wrapper__buttons">
+                        <button class="js-add-income">Додати прибуток</button>
+                        <button class="js-add-expense">Додати витрату</button>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="list"></div>
+        </div>
+    </section> -->
+    
+    
+    <div class="header">
+        <nav class="header__nav">
+            <div class="header__logoWrapper">
+                <img src="icons/logo.svg" alt="logo" class="header__logo">
+                <div class="header__themeSwitcher">
+                    <div class="header__themeSwitcher__switcher"></div>
+                </div>
+            </div>
+            <div class="header__signInWrapper">
+                <div class="header__languageSwitcher">
+                    <div class="header__language_active">UKR</div>
+                    <hr>
+                    <div class="header__language">ENG</div>
+                </div>
+                <button class="header__signIn" onclick="openModal()">
+                    <img src="icons/sign_up_icon.svg" alt="person" class="header__signIn__icon">
+                    <div class="header__signIn__text">Вхід</div>
+                </button>
+            </div>
+            <!-- Модальне вікно -->
+            <div class="signInWindow">
+                <div class="closeBtn">
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                </div>
+                <div class="signInWindow__content">
+                    <h2 class ='signInWindow__title'>Вхід/Реєстрація</h2>
+                    <form class="signInWindow__form">
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Пароль">
+                        <div class="wrapper">
+                            <div class="innerWrapper">
+                                <input type="submit" value="Увійти" id ='signInBtn'>
+                                <input type="submit" value="Реєстрація" id ='regBtn'>
+                            </div>
+                            <a href="#" class="restorePassword">Забули пароль?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <section class="statistics">
+        <aside>
+            <div class="wrapper">
+                <input type="text" name="source" id="src" placeholder="Джерело доходу / ціль витрати">
+                <input type="text" name="amount" id="amnt" placeholder="Введіть суму">
+                <div class="submition">
+                    <input type="button" value="Додати прибуток">
+                    <input type="button" value="Додати витрату">
+                </div>
+            </div>
+        </aside>
+        <div class="container">
+            <div class="statistics__buttons">
+                <button class="getStats" onclick="stats.getDailyStats()">Статистика за день</button>
+                <button class="getStats" onclick="stats.getWeeklyStats()">Статистика за тиждень</button>
+                <button class="getStats" onclick="stats.getMonthlyStats()">Статистика за місяць</button>
+                <button class="getStats" onclick="stats.getYearlyStats()">Статистика за рік</button>
+            </div>
+            <div class="statisticts__filter">
+                <div class="statistics__search">
+                    <input type="search" name="search" placeholder="Пошук">
+                    <img src="icons/search.svg" alt="
+                    magnifier" class="statistics__search__icon">
+                </div>
+                <div class="statistics__filter__el">сума</div>
+                <div class="statistics__filter__el">дата</div>
+            </div>
+            <div class="workingArea">
+                <table class="statistics__table"></table>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+    <script src="js/list.js"></script>
+    <script src="js/modals.js"></script>
+</body>
+</html>
