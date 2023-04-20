@@ -61,6 +61,15 @@ export default class Store {
         }
     }
 
+    async sendLink() {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AuthService.sendLink();
+        } catch (error) {
+            console.log(error);           
+        }
+    }
+
     async checkAuth() {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true});

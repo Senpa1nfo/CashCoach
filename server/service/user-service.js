@@ -56,6 +56,10 @@ class UserService {
         return token;
     }
 
+    async sendLink(email, activationLink) {
+        return await mailService.SendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);   
+    }
+
     async refresh(refreshToken) {
         if (!refreshToken) {
             throw ApiError.UnauthorizedError();

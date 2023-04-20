@@ -34,7 +34,22 @@ class UserController {
             const {refreshToken} = req.cookies;
             const token = await UserService.logout(refreshToken);
             res.clearCookie('refreshToken');
+            console.log(res.json(token));
             return res.json(token);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async sendLink(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies;
+            const userData = await UserService.refresh(refreshToken); 
+
+            const email = userData.user.email;
+            const activationLink = userData.user.activationLink;
+
+            await UserService.sendLink(email ,activationLink);
         } catch (error) {
             next(error);
         }

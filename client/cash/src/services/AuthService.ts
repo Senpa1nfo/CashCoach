@@ -14,4 +14,8 @@ export default class AuthService {
     static async logout(): Promise<void> {
         return $api.post('/logout');
     }
+
+    static async sendLink(): Promise<void> {       
+        return $api.post('/link');
+    }
 }

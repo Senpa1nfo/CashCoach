@@ -11,6 +11,7 @@ router.post('/registration',
 );
 router.post('/login', UserController.login);
 router.post('/logout', UserController.logout);
+router.post('/link', UserController.sendLink);
 router.get('/activate/:link', UserController.activate);
 router.get('/refresh', UserController.refresh);
 router.get('/users', authMiddleware, UserController.users);
