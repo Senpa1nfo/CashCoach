@@ -7,30 +7,29 @@ import sign_up from '../../../icons/sign_up_icon.svg';
 
 const Header = () => {
     return(
-        <header>
-            <div className="wrapper">
-                <img src={logo} className="logo" alt='logo'/>
-                <div className="theme-switcher">
+        <header className="header">
+            <div className="header__wrapper">
+                <img src={logo} className="header__logo" alt='logo'/>
+                <div className="header__theme-switcher">
                     <img src={moon} alt='moon'/>
                     <img src={sun} alt='sun'/>
-                    <div className="theme-switcher__switcher"></div>
+                    <div className="header__theme-switcher__switcher"></div>
                 </div>
             </div>
            
             <nav></nav>
 
-            <div className="wrapper">
-                <div className="language-switcher">
-                    <div className="language-switcher__item_active">UKR</div>
-                    <hr/>
-                    <div className="language-switcher__item">ENG</div>
+            <div className="header__wrapper">
+                <div className="header__language-switcher">
+                    <div className="header__language-switcher__item_active">UKR</div>
+                    <div className="header__diveder"></div>
+                    <div className="header__language-switcher__item">ENG</div>
                 </div>
-                <button className="login-btn">
+                <button className="header__login-btn">
                     <img src={sign_up} alt="sign_up" className=""/>
-                    <div className="login-btn__text">Вхід</div>
+                    <div className="header__login-btn__text">Вхід</div>
                 </button>
             </div>
-
         </header>    
     )
 }

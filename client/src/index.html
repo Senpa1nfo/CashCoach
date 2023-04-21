@@ -38,7 +38,7 @@
     </section> -->
     
     
-    <div class="header">
+    <header class="header">
         <nav class="header__nav">
             <div class="header__logoWrapper">
                 <img src="icons/logo.svg" alt="logo" class="header__logo">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </header>
     <section class="statistics">
         <aside>
             <div class="wrapper">
@@ -93,19 +93,23 @@
         </aside>
         <div class="container">
             <div class="statistics__buttons">
-                <button class="getStats" onclick="stats.getDailyStats()">Статистика за день</button>
-                <button class="getStats" onclick="stats.getWeeklyStats()">Статистика за тиждень</button>
-                <button class="getStats" onclick="stats.getMonthlyStats()">Статистика за місяць</button>
-                <button class="getStats" onclick="stats.getYearlyStats()">Статистика за рік</button>
+                <div class="wrapper">
+                    <button class="getStats" onclick="stats.getDailyStats()">Статистика за день</button>
+                    <button class="getStats" onclick="stats.getWeeklyStats()">Статистика за тиждень</button>
+                    <button class="getStats" onclick="stats.getMonthlyStats()">Статистика за місяць</button>
+                    <button class="getStats" onclick="stats.getYearlyStats()">Статистика за рік</button>
+                </div>
             </div>
-            <div class="statisticts__filter">
+            <div class="statistics__filter">
                 <div class="statistics__search">
                     <input type="search" name="search" placeholder="Пошук">
                     <img src="icons/search.svg" alt="
                     magnifier" class="statistics__search__icon">
                 </div>
-                <div class="statistics__filter__el">сума</div>
-                <div class="statistics__filter__el">дата</div>
+                <div class="wrapper">
+                    <button class="statistics__filter__el" id="amount">сума</button>
+                    <button class="statistics__filter__el" id="date">дата</button>
+                </div>
             </div>
             <div class="workingArea">
                 <table class="statistics__table"></table>
@@ -116,5 +120,6 @@
     <script src="js/script.js"></script>
     <script src="js/list.js"></script>
     <script src="js/modals.js"></script>
+    <script src="js/tableScroll.js"></script>
 </body>
 </html>
