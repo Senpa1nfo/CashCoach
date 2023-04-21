@@ -1,0 +1,32 @@
+import { useContext, useEffect } from "react";
+import { Context } from "../../../..";
+import sign_up from '../../../../icons/sign_up_icon.svg';
+import logout from '../../../../icons/logout.svg';
+
+const Autorized = () => {
+
+    const {store} = useContext(Context);
+
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			store.checkAuth();
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+    if (!store.isAuth) {
+        return (
+            <button className="header__login-btn" onClick={() => document.querySelector('.login')?.classList.remove('none')}>
+                <img src={sign_up} alt="sign_up" className=""/>
+                <div className="header__login-btn__text">Вхід</div>
+            </button>
+        )
+    }
+    return (
+        <div onClick={() => store.logout()}>
+            <img src={logout} alt="sign_up" className=""/>
+        </div>        
+    )
+}
+
+export default Autorized;

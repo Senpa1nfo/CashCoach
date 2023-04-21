@@ -52,6 +52,8 @@ export default class Store {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const response = await AuthService.logout();
+            console.log(localStorage.getItem('token'));
+            
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
@@ -74,7 +76,6 @@ export default class Store {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true});
             console.log(response);           
-
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);

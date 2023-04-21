@@ -1,7 +1,12 @@
 import React, {useContext, useEffect} from 'react';
-import LoginForm from './components/LoginForm';
 import { Context } from '.';
 import { observer } from 'mobx-react-lite';
+import LoginForm from './components/elements/loginForm/LoginForm';
+import Header from './components/elements/header/Header';
+import Adding from './components/elements/adding/Adding';
+import Statistic from './components/elements/statistic/Statistic';
+import Search from './components/elements/search/Search';
+import List from './components/elements/list/List';
 
 function App() {
 
@@ -11,12 +16,11 @@ function App() {
 		if (localStorage.getItem('token')) {
 			store.checkAuth();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (!store.isAuth) {
 		return (
-			<LoginForm/>
+			<Header/>
 		)
 	}
 
@@ -30,11 +34,17 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-		<h1>{store.isAuth ? "Пользователь авторизован" : "Войдите"}</h1>
-		<h1>{store.user.isActivated ? "Аккаунт активирован" : <SendLinkButton></SendLinkButton>}</h1>
-		<button onClick={() => store.logout()}>Выйти</button>
-		</div>
+		<div>
+            <Header></Header>
+            <main>
+                <Adding></Adding>
+                <div className="wrapper">
+                    <Statistic></Statistic>
+                    <Search></Search>
+                    <List></List>
+                </div>
+            </main>
+        </div>     
 	);
 }
 
