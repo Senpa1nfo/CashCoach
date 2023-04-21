@@ -1,7 +1,9 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app/App';
 import Store from './store/Store';
+import './sass/bootstrap-reboot.rtl.min.css';
+import './sass/index.sass';
 
 interface State {
   store: Store,

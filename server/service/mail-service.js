@@ -11,7 +11,7 @@ class MailService {
                 user: process.env.SMPT_USER,
                 pass: process.env.SMPT_PASSWORD
             },
-            tls: {
+            tls: { // Убрать в будущем из-за возможности угроз
                 rejectUnauthorized: false
             }
         });
