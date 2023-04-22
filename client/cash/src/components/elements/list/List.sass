@@ -1,9 +1,111 @@
 .list
-    width: 1512px
-    height: 572px
-    background: rgba(255, 255, 255, 0.04)
-    opacity: 0.5
-    box-shadow: inset 0px 1px 2px rgba(239, 232, 232, 0.6)
-    backdrop-filter: blur(15px)
-    border-radius: 20px
-    margin-top: 20px
+    width: 100%
+    height: 100%
+.table
+    width: 100%
+    border-collapse: separate
+    border-spacing: 0 5px
+    position: relative
+th
+    background: rgba(19, 24, 31, 0.7)
+    height: 50px
+    font-weight: 700
+    color: #9C9BD6
+    font-size: 24px
+    position: sticky
+th:first-of-type
+    width: 125px
+    border-top-left-radius: 10px
+    border-bottom-left-radius: 10px
+th:nth-of-type(2)
+    width: 825px
+th:nth-of-type(3)
+    width: 191px
+th:nth-of-type(4)
+    width: 191px
+th:nth-of-type(5)
+    display: flex
+    width: 125px
+    justify-content: center
+    align-items: center
+    border-top-right-radius: 10px
+    border-bottom-right-radius: 10px
+    height: 65px
+tr
+    box-shadow: inset 0px 1px 2px rgba(239, 232, 232, 0.4)
+    border-radius: 10px
+    height: 75px
+    margin-top: 5px
+.deleteBtn, .editBtn
+    width: 30px
+    height: 30px
+    background: #33335A
+    border-radius: 5px
+    display: flex
+    align-items: center
+    justify-content: center
+    border: none
+    .edit
+        width: 18px
+        height: 18px
+input[name='select']
+    width: 0
+    height: 0
+    position: relative
+    cursor: pointer
+    &:before 
+        content: ""
+        display: block
+        position: absolute
+        width: 20px
+        height: 20px
+        top: -85%
+        left: -85%
+        background: rgba(255, 255, 255, 0.06)
+        box-shadow: inset 0px 1px 2px rgba(239, 232, 232, 0.6)
+        border-radius: 4px
+        transform: translate(35%, -85%)
+    &:checked:after 
+        content: ""
+        display: block
+        position: absolute
+        width: 8px
+        height: 15px
+        border: 1.5px solid #73FFF2
+        border-width: 0 2px 2px 0
+        transform: translate(160%, -100%) rotate(45deg)
+        top: -85%
+        left: -100%
+thead
+    tr
+        height: 65px
+td
+    position: relative
+    height: 75px
+    background: rgba(23, 35, 51, 0.7)
+    font-weight: 600
+    font-size: 16px
+    color: rgba(239, 232, 232, 0.6)
+td:first-of-type, td:nth-of-type(5)
+    padding: 22px 50px
+td:first-of-type
+    border-top-left-radius: 10px
+    border-bottom-left-radius: 10px
+td:nth-of-type(5)
+    border-top-right-radius: 10px
+    border-bottom-right-radius: 10px
+td:nth-of-type(3):hover
+    opacity: 75%
+    cursor: pointer
+    &:hover::before 
+        content: attr(data-tooltip)
+        position: absolute
+        top: -30px
+        left: 0
+        width: 100%
+        background-color: #000
+        color: #fff
+        padding: 5px
+        border-radius: 5px
+        font-size: 14px
+        text-align: center

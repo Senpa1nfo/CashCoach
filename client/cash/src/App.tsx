@@ -4,9 +4,10 @@ import { observer } from 'mobx-react-lite';
 import LoginForm from './components/elements/loginForm/LoginForm';
 import Header from './components/elements/header/Header';
 import Adding from './components/elements/adding/Adding';
-import Statistic from './components/elements/statistic/Statistic';
+import Statistics from './components/elements/statistics/Statistics';
 import Search from './components/elements/search/Search';
 import List from './components/elements/list/List';
+import WorkingArea from './components/elements/workingArea/WorkingArea';
 
 function App() {
 
@@ -39,9 +40,9 @@ function App() {
             <main>
                 <Adding></Adding>
                 <div className="wrapper">
-                    <Statistic></Statistic>
+                    <Statistics></Statistics>
                     <Search></Search>
-                    <List></List>
+					<WorkingArea></WorkingArea>
                 </div>
             </main>
         </div>     

@@ -34,8 +34,8 @@ const LoginForm: FC = () => {
                     />
                     <div className="login__wrapper">
                         <div className="login__inner-wrapper">
-                            <button onClick={() => {store.login(email, password)}}>Вход</button>
-                            <button onClick={() => {store.registration(email, password); }}>Регистрация</button>
+                            <button onClick={() => {store.login(email, password)}}>Вхід</button>
+                            <button onClick={() => {store.registration(email, password); }}>Реєстрація</button>
                         </div>
                         <a href="/" className="login__forgot">Забули пароль?</a>
                     </div>

@@ -23,23 +23,18 @@ export default class Store {
 
     async login(email: string, password: string) {
         try {
-            const response = await AuthService.login(email, password);
-            console.log(response);
-            
+            const response = await AuthService.login(email, password);  
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
         } catch (error) {
-            console.log(error);
-            
+            console.log(error); 
         }
     }
 
     async registration(email: string, password: string) {
         try {
             const response = await AuthService.registration(email, password);
-            console.log(response);
-
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
@@ -52,14 +47,11 @@ export default class Store {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const response = await AuthService.logout();
-            console.log(localStorage.getItem('token'));
-            
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
         } catch (error) {
-            console.log(error);
-            
+            console.log(error); 
         }
     }
 
@@ -74,8 +66,7 @@ export default class Store {
 
     async checkAuth() {
         try {
-            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true});
-            console.log(response);           
+            const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true});         
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);

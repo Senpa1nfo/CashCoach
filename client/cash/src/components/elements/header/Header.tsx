@@ -23,7 +23,7 @@ const Header = () => {
             <div className="header__wrapper">
                 <div className="header__language-switcher">
                     <div className="header__language-switcher__item_active">UKR</div>
-                    <div className="header__diveder"></div>
+                    <div className="header__divider"></div>
                     <div className="header__language-switcher__item">ENG</div>
                 </div>              
                 <Autorized/>

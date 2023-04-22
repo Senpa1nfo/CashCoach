@@ -9,8 +9,8 @@ const Search = () => {
                 <img src={search} alt="magnifier" className="search-panel__icon"/>
             </div>
             <div className="search-panel__sort">
-                <div className="search-panel__filter">сума</div>
-                <div className="search-panel__filter">дата</div>
+                <button className="search-panel__filter">сума</button>
+                <button className="search-panel__filter">дата</button>
             </div>
         </div>      
     )
