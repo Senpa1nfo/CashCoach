@@ -1,13 +1,13 @@
 import React, {useContext, useEffect} from 'react';
 import { Context } from '.';
 import { observer } from 'mobx-react-lite';
-import LoginForm from './components/elements/loginForm/LoginForm';
+
 import Header from './components/elements/header/Header';
 import Adding from './components/elements/adding/Adding';
-import Statistics from './components/elements/statistics/Statistics';
 import Search from './components/elements/search/Search';
-import List from './components/elements/list/List';
+import Menu from './components/elements/menu/Menu';
 import WorkingArea from './components/elements/workingArea/WorkingArea';
+
 
 function App() {
 
@@ -40,7 +40,7 @@ function App() {
             <main>
                 <Adding></Adding>
                 <div className="wrapper">
-                    <Statistics></Statistics>
+                    <Menu></Menu>
                     <Search></Search>
 					<WorkingArea></WorkingArea>
                 </div>
