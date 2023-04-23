@@ -1,4 +1,5 @@
 const UserService = require('../service/user-service');
+const AddService = require('../service/add-service');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api-error');
 
@@ -80,6 +81,20 @@ class UserController {
         try {
             const users = await UserService.getAllUsers();
             return res.json(users);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async add(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies;
+            const userData = await UserService.refresh(refreshToken); 
+            const user_id = userData.user.id;
+            const {description, value, bool} = req.body;
+
+            const item = await AddService.add(user_id, description, value, bool); 
+            return res.json(item);
         } catch (error) {
             next(error);
         }

@@ -4,6 +4,7 @@ import AuthService from "../services/AuthService";
 import axios from 'axios';
 import { AuthResponse } from "../models/response/AuthResponse";
 import { API_URL } from "../http";
+import AddService from "../services/AddService";
 
 export default class Store {
     user = {} as IUser;
@@ -38,6 +39,15 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async add(description: string, value: string, bool: boolean) {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AddService.add(description, value, bool);
         } catch (error) {
             console.log(error);
         }
