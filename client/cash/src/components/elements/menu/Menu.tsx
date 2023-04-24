@@ -11,31 +11,22 @@ const changeArea = (num: number) => {
 
     switch (num) {
         case 1:
-            menu_btns.forEach((element, index) => {
-                index === 0 ? element?.classList.remove('none') : element?.classList.add('none');
-            })
-
-            btns.forEach((element, index) => {
-                index === 0 ? element.classList.add('menu__btn__active') : element.classList.remove('menu__btn__active');
-            })
+            for (let i = 0; i < btns.length; i++) {
+                i === 0 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
+                i === 0 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
+            }
             break;
         case 2:
-            menu_btns.forEach((element, index) => {
-                index === 1 ? element?.classList.remove('none') : element?.classList.add('none');
-            })
-
-            btns.forEach((element, index) => {
-                index === 1 ? element.classList.add('menu__btn__active') : element.classList.remove('menu__btn__active');
-            })
+            for (let i = 0; i < btns.length; i++) {
+                i === 1 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
+                i === 1 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
+            }
             break;
         case 3:
-            menu_btns.forEach((element, index) => {
-                index === 2 ? element?.classList.remove('none') : element?.classList.add('none');
-            })
-
-            btns.forEach((element, index) => {
-                index === 2 ? element.classList.add('menu__btn__active') : element.classList.remove('menu__btn__active');
-            })
+            for (let i = 0; i < btns.length; i++) {
+                i === 2 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
+                i === 2 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
+            }
             break;
     }
 }

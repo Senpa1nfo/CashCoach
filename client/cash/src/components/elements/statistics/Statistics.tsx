@@ -11,10 +11,10 @@ const switchStat = (num: number) => {
             })
             break;
         case 2:        
-        btns.forEach((element, index) => {
-            index === 1 ? element.classList.add('stats__btn__active') : element.classList.remove('stats__btn__active');
-        })
-        break;
+            btns.forEach((element, index) => {
+                index === 1 ? element.classList.add('stats__btn__active') : element.classList.remove('stats__btn__active');
+            })
+            break;
         case 3:
             btns.forEach((element, index) => {
                 index === 2 ? element.classList.add('stats__btn__active') : element.classList.remove('stats__btn__active');
