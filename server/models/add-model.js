@@ -5,7 +5,7 @@ const ListSchema = new Schema({
     description: {type: String, required: true},
     value: {type: String, required: true},
     bool: {type: Boolean, required: true},
-    date:  {type: Date, default: Date.now }
+    date: {type: String, required: true}
 })
 
 module.exports = model('List', ListSchema);

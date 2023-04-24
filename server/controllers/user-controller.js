@@ -92,19 +92,26 @@ class UserController {
             const userData = await UserService.refresh(refreshToken); 
             const user_id = userData.user.id;
             const {description, value, bool} = req.body;
-            const item = await AddService.add(user_id, description, value, bool); 
+
+            const year = new Date().getFullYear();
+            const month = new Date().getMonth();
+            const day = new Date().getDate();
+            const hours = new Date().getHours();
+            const minutes = new Date().getMinutes();
+            const date = `${day}/${month + 1}/${year} ${hours}:${minutes}`;
+
+            const item = await AddService.add(user_id, description, value, bool, date); 
             return res.json(item);
         } catch (error) {
             next(error);
         }
     }
-    
+
     async generate_list(req, res, next) {
         try {
-            // const {refreshToken} = req.cookies;
-            // const userData = await UserService.refresh(refreshToken); 
-            // const user_id = userData.user.id;
-            const user_id = '64465f860298323355afcad0';
+            const {refreshToken} = req.cookies;
+            const userData = await UserService.refresh(refreshToken); 
+            const user_id = userData.user.id;
             
             const item = await AddService.get(user_id); 
             return res.json(item);

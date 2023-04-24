@@ -41,7 +41,7 @@ const Adding = () => {
                                 element.value = '';
                             });
                         }}>
-                        Додати прибуток
+                        Прибуток
                     </button>
                     <button className="adding__btn adding__btn_2" 
                         onMouseEnter={() => {
@@ -55,7 +55,7 @@ const Adding = () => {
                                 element.value = '';
                             });
                         }}>
-                        Додати витрату
+                        Витрата
                     </button>
                 </div>
             </form>

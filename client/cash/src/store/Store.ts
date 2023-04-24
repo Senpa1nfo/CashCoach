@@ -84,4 +84,14 @@ export default class Store {
             console.log(error);
         }
     }
+
+    async generate_list() {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AddService.generate_list();
+            return response.data;      
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
