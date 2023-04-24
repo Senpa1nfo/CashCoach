@@ -10,7 +10,7 @@ const Adding = () => {
     const [value, setValue] = useState<string>('');
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const {store} = useContext(Context);
-  
+
     return (
         <div className="adding">
             <form action="" className="adding__form">
@@ -19,7 +19,7 @@ const Adding = () => {
                     value={description}
                     type="text" 
                     className="adding__input" 
-                    placeholder="Доход / Витрата" 
+                    placeholder="Прибуток / Витрата" 
                 />
                 <input 
                     onChange={e => setValue(e.target.value)}
@@ -29,7 +29,11 @@ const Adding = () => {
                     placeholder="Введіть суму" 
                 />
                 <div className="adding__buttons">
-                    <button className="adding__btn" 
+                    <button className="adding__btn adding__btn_1" 
+                        onMouseEnter={() => {
+                            document.querySelector('.adding__btn_1')?.classList.add('adding__btn_z-index');
+                            document.querySelector('.adding__btn_2')?.classList.remove('adding__btn_z-index');                            
+                        }}
                         onClick={(event) => {
                             event.preventDefault(); 
                             store.add(description, value, true); 
@@ -37,9 +41,13 @@ const Adding = () => {
                                 element.value = '';
                             });
                         }}>
-                        Додати прибуток
+                        Додати
                     </button>
-                    <button className="adding__btn" 
+                    <button className="adding__btn adding__btn_2" 
+                        onMouseEnter={() => {
+                            document.querySelector('.adding__btn_1')?.classList.remove('adding__btn_z-index');
+                            document.querySelector('.adding__btn_2')?.classList.add('adding__btn_z-index');
+                        }}
                         onClick={(event) => {
                             event.preventDefault(); 
                             store.add(description, value, false); 
@@ -47,7 +55,7 @@ const Adding = () => {
                                 element.value = '';
                             });
                         }}>
-                        Додати витрату
+                        <div className="adding__btn__txt">Додати</div>
                     </button>
                 </div>
             </form>
