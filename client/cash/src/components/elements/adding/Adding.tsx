@@ -1,5 +1,5 @@
-import { Context } from '../../..';
 import './Adding.sass';
+import { Context } from '../../..';
 import { useContext, useState } from 'react';
 
 const Adding = () => {
@@ -19,7 +19,7 @@ const Adding = () => {
                     value={description}
                     type="text" 
                     className="adding__input" 
-                    placeholder="Джерело доходу / ціль витрати" 
+                    placeholder="Доход / Витрата" 
                 />
                 <input 
                     onChange={e => setValue(e.target.value)}

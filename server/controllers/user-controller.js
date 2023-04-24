@@ -92,7 +92,6 @@ class UserController {
             const userData = await UserService.refresh(refreshToken); 
             const user_id = userData.user.id;
             const {description, value, bool} = req.body;
-
             const item = await AddService.add(user_id, description, value, bool); 
             return res.json(item);
         } catch (error) {

@@ -7,14 +7,35 @@ import LoginForm from '../loginForm/LoginForm';
 import Autorized from './autorized/Autorized';
 
 const Header = () => {
+
+    let theme = true;
+    const switchTheme = () => {
+        if (theme) {
+            document.querySelector('.header__theme-switcher__switcher')?.classList.remove('header__theme-switcher__switcher_on');
+            theme = false;
+        } else {
+            document.querySelector('.header__theme-switcher__switcher')?.classList.add('header__theme-switcher__switcher_on');
+            theme = true;
+        }
+    }
+
+    const setEnglish = () => {
+        document.querySelector('.ua')?.classList.remove('header__language-switcher__item_active');
+        document.querySelector('.eng')?.classList.add('header__language-switcher__item_active');
+    }
+    const setUkrainian = () => {
+        document.querySelector('.eng')?.classList.remove('header__language-switcher__item_active');
+        document.querySelector('.ua')?.classList.add('header__language-switcher__item_active');
+    }
+
     return(
         <header className="header">
             <div className="header__wrapper">
                 <img src={logo} className="header__logo" alt='logo'/>
-                <div className="header__theme-switcher">
+                <div className="header__theme-switcher" onClick={() => switchTheme()}>
                     <img src={moon} alt='moon'/>
                     <img src={sun} alt='sun'/>
-                    <div className="header__theme-switcher__switcher"></div>
+                    <div className="header__theme-switcher__switcher header__theme-switcher__switcher_on"></div>
                 </div>
             </div>
            
@@ -22,9 +43,9 @@ const Header = () => {
 
             <div className="header__wrapper">
                 <div className="header__language-switcher">
-                    <div className="header__language-switcher__item_active">UKR</div>
+                    <div className="ua header__language-switcher__item header__language-switcher__item_active" onClick={() => setUkrainian()}>UKR</div>
                     <div className="header__divider"></div>
-                    <div className="header__language-switcher__item">ENG</div>
+                    <div className="eng header__language-switcher__item" onClick={() => setEnglish()}>ENG</div>
                 </div>              
                 <Autorized/>
             </div>
