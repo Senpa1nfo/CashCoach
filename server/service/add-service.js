@@ -5,6 +5,11 @@ class AddService {
         const item =  await AddModel.create({user_id, description, value, bool});
         return item;
     }
+    
+    async get(user_id) {
+        const item =  await AddModel.find({user_id});;
+        return item;
+    }
 }
 
 module.exports = new AddService();

@@ -98,6 +98,20 @@ class UserController {
             next(error);
         }
     }
+    
+    async generate_list(req, res, next) {
+        try {
+            // const {refreshToken} = req.cookies;
+            // const userData = await UserService.refresh(refreshToken); 
+            // const user_id = userData.user.id;
+            const user_id = '64465f860298323355afcad0';
+            
+            const item = await AddService.get(user_id); 
+            return res.json(item);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new UserController();
