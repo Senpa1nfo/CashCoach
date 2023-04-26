@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 function SumArea() {
 	const [amount, setAmount] = useState(0);
 	const [percent, setPercent] = useState(0);
-	const [period, setPeriod] = useState(0);
+	const [period, setPeriod] = useState(1);
 
 	const handleAmountChange = (event:React.ChangeEvent<HTMLInputElement>) => {
 		const newAmount = parseFloat(event.target.value);
@@ -35,7 +35,7 @@ function SumArea() {
 			alert('Введіть коректний відсоток!');
 			return;
 		}
-		if (!period || period <= 0) {
+		if (!period || period <= 1) {
 			alert('Введіть коректний період!');
 			return;
 		}
@@ -46,10 +46,10 @@ function SumArea() {
 		if (outputRef.current) {
 			outputRef.current.innerHTML = '';
 			outputRef.current.innerHTML += `<p>Заощадження: ${savings.toFixed(2)}</p>`;
-			if(period) {
-				outputRef.current.innerHTML += `<p>Можна витратити за ${period} ${rightWordEnding(period, ['день', 'дні', 'днів'])}: ${(sum/period).toFixed(2)}</p>`
-			} else {
-				alert('Введіть коректний період!');
+			if(period === 1) {
+				outputRef.current.innerHTML += `<p>Можна витратити за ${period} день: ${(sum/period).toFixed(2)}</p>`
+			} else if (period > 1) {
+				outputRef.current.innerHTML += `<p>За ${period} ${rightWordEnding(period, ['день', 'дні', 'днів'])} у день можна витрачати по: ${(sum/period).toFixed(2)}</p>`
 			}
 			outputRef.current.innerHTML += `<h3>До прикладу</h3>`;
 			outputRef.current.innerHTML += `<p>На день з місяця можна витрачати по: ${(sum/30).toFixed(2)}</p>`;
@@ -63,17 +63,17 @@ function SumArea() {
 			<h2>Опрацювання суми</h2>
 			<label>
 				Введіть суму:
-				<input type="number" value={amount} onChange={handleAmountChange} />
+				<input type="number" value={amount} min='0' max='900000' onChange={handleAmountChange} />
 			</label>
 			<br />
 			<label>
 				Введіть відсоток для заощадження:
-				<input type="number" value={percent} onChange={handlePercentChange} />
+				<input type="number" value={percent} min='0' max='100' onChange={handlePercentChange} />
 			</label>
 			<br />
 			<label>
 				Введіть термін у днях:
-				<input type="number" value={period} onChange={handlePeriodChange} />
+				<input type="number" value={period} min='1' max='100' onChange={handlePeriodChange} />
 			</label>
 			<br />
 			<button onClick={handleCalculate}>Обрахувати</button>

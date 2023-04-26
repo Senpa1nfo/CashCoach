@@ -31,9 +31,9 @@ function Calculator() {
 	}
 
 	const calculateCompoundInterest = () => {
-		const total = `${principal * (1 + (interestRate / compoundingPeriods)) ** (compoundingPeriods * years)}`;
-		const formattedNumber = total.toLocaleString();
-		setCompoundInterest(formattedNumber.slice(0,15));
+		const total = principal * (1 + (interestRate / compoundingPeriods)) ** (compoundingPeriods * years);
+		const formattedNumber = Math.floor(total).toLocaleString();
+		setCompoundInterest(formattedNumber);
   	}
 
 	return (
@@ -41,11 +41,11 @@ function Calculator() {
 			<h2>Калькулятор відсотків</h2>
 			<div>
 				<label>Початкова сума:</label>
-				<input type="number" value={principal} onChange={handlePrincipalChange} />
+				<input type="number" value={principal} min='0' max='900000' onChange={handlePrincipalChange} />
 			</div>
 			<div>
-				<label>Річна процентна ставка (%):</label>
-				<input type="number" step="0.01" value={interestRate} onChange={handleInterestRateChange} />
+				<label>Річна відсоткова ставка (%):</label>
+				<input type="number" step="0.01" min='0' max='100' value={interestRate} onChange={handleInterestRateChange} />
 			</div>
 			<div>
 				<label>Кількість періодів складання на рік:</label>
@@ -53,18 +53,18 @@ function Calculator() {
 			</div>
 			<div>
 				<label>Кількість років:</label>
-				<input type="number" value={years} onChange={handleYearsChange} />
+				<input type="number" min='1' max='100' value={years} onChange={handleYearsChange} />
 			</div>
 			<div>
 				<button onClick={calculateSimpleInterest}>Обчислити простий відсоток</button>
 				<button onClick={calculateCompoundInterest}>Обчислити складний відсоток</button>
 			</div>
 			<div>
-				<label>Простий відсоток:</label>
+				<label>Очікувана сума за простим відсотком:</label>
 				<span>{simpleInterest}</span>
 			</div>
 			<div>
-				<label>Складний відсоток:</label>
+				<label>Очікувана сума за складним відсотком:</label>
 				<span>{compoundInterest}</span>
 			</div>
 		</div>
