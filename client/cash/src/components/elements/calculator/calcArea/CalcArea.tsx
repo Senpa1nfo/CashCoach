@@ -1,74 +1,154 @@
 import { useState } from 'react';
 
-function Calculator() {
-	const [principal, setPrincipal] = useState(0);
-	const [interestRate, setInterestRate] = useState(0);
-	const [compoundingPeriods, setCompoundingPeriods] = useState(1);
-	const [years, setYears] = useState(1);
-	const [simpleInterest, setSimpleInterest] = useState('');
-	const [compoundInterest, setCompoundInterest] = useState('');
+const CalcArea = () => {
+	
+	const [startSum, setStartSum] = useState(1000);
+	const [reFill, setReFill] = useState(100);
+	const [sumPeriod, setSumPeriod] = useState(1);
+	const [percent, setPercent] = useState(10);
+	const [percentPeriod, setPercentPeriod] = useState(1);
+	const [years, setYears] = useState(10);
+	const [income, setIncome] = useState('');
 
-	const handlePrincipalChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-		setPrincipal(parseFloat(event.target.value));
-  	}
+	let incomeForYears = 0;
+	let accruedReFill: string[] = [];
+	let accruedInterest: string[] = [];
+	let totalAccruedInterest: string[] = [];
+	let totalBalance: string[] = [];
+	let currentYear = years;
+	let reFillCounter = 1;
+	const countCompoundPercent = (): any => {
+		if (currentYear === 0) {
+			totalBalance.push((incomeForYears).toFixed(2));	
+			console.log([totalBalance, totalAccruedInterest, accruedInterest, accruedReFill]);
+			return [totalBalance, totalAccruedInterest, accruedInterest, accruedReFill];
+		}
 
-	const handleInterestRateChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-		setInterestRate(parseFloat(event.target.value));
+		if (reFill === 0) {
+			if (incomeForYears === 0) {
+				accruedInterest.push((incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - startSum).toFixed(2));
+				totalAccruedInterest.push(((startSum) * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - startSum).toFixed(2));
+				totalBalance.push((startSum).toFixed(2));
+
+				incomeForYears = startSum * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod);
+			} else {
+				accruedInterest.push((incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - startSum).toFixed(2));
+				totalAccruedInterest.push((incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - startSum).toFixed(2));
+				totalBalance.push((incomeForYears).toFixed(2));				
+
+				incomeForYears = incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod);
+			}
+		} else {
+			if (incomeForYears === 0) {
+				accruedInterest.push(((startSum * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod)) - startSum - reFill * reFillCounter * sumPeriod).toFixed(2));
+				totalAccruedInterest.push(((startSum * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod)) - startSum - reFill * reFillCounter * sumPeriod).toFixed(2));
+				accruedReFill.push((reFill * reFillCounter * sumPeriod).toFixed(2));
+				totalBalance.push((startSum).toFixed(2));
+
+				incomeForYears = (startSum * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod));
+			} else {
+				totalAccruedInterest.push(((incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod)) - startSum - reFill * reFillCounter * sumPeriod).toFixed(2));
+				accruedReFill.push((reFill * reFillCounter * sumPeriod).toFixed(2));
+				accruedInterest.push(((incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod)) - startSum - reFill * reFillCounter * sumPeriod - Number(totalAccruedInterest[reFillCounter - 2])).toFixed(2));
+				totalBalance.push((incomeForYears).toFixed(2));	
+
+				incomeForYears = (incomeForYears * Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod)) + ((reFill * sumPeriod * (Math.pow((1 + ((percent / 100) / percentPeriod)), percentPeriod) - 1)) / ((percent / 100) / percentPeriod));
+			}
+		}
+
+		reFillCounter++;
+		currentYear--;
+		return countCompoundPercent();
 	}
-
-	const handleCompoundingPeriodsChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-		setCompoundingPeriods(parseFloat(event.target.value));
-  	}
-
-	const handleYearsChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-		setYears(parseFloat(event.target.value));
-  	}
-
-	const calculateSimpleInterest = () => {
-		const interest = (principal * interestRate * years) / 100;
-		const formattedNumber = interest.toLocaleString();
-		setSimpleInterest(formattedNumber);
-	}
-
-	const calculateCompoundInterest = () => {
-		const total = principal * (1 + (interestRate / compoundingPeriods)) ** (compoundingPeriods * years);
-		const formattedNumber = Math.floor(total).toLocaleString();
-		setCompoundInterest(formattedNumber);
-  	}
 
 	return (
 		<div>
 			<h2>Калькулятор відсотків</h2>
 			<div>
 				<label>Початкова сума:</label>
-				<input type="number" value={principal} min='0' max='900000' onChange={handlePrincipalChange} />
+				<input 
+					type="number" 
+					step='1000' 
+					min='0' max='99999999999' 
+					value={startSum}
+					onChange={e => setStartSum(Number(e.target.value))}
+				/>
 			</div>
 			<div>
-				<label>Річна відсоткова ставка (%):</label>
-				<input type="number" step="0.01" min='0' max='100' value={interestRate} onChange={handleInterestRateChange} />
-			</div>
+				<div>
+					<label>Сума поповнення:</label>
+					<input 
+						type="number" 
+						step="100" 
+						min='0' max='9999999999' 
+						value={reFill}
+						onChange={e => setReFill(Number(e.target.value))}
+					/>
+				</div>
+				<div>
+					<label>Періодичність:</label>
+					<select name="" id=""
+						value={sumPeriod}
+						onChange={e => setSumPeriod(Number(e.target.value))}>
+						<option value="1">Кожен рік</option>
+						<option value="2">Кожні півроку</option>
+						<option value="4">Кожен квартал</option>
+						<option value="12">Кожен місяць</option>
+					</select>
+				</div>
+			</div>	
 			<div>
-				<label>Кількість періодів складання на рік:</label>
-				<input type="number" value={compoundingPeriods} onChange={handleCompoundingPeriodsChange} />
-			</div>
+				<div>
+					<label>Річна відсоткова ставка (%):</label>
+					<input 
+						type="number" 
+						step="1" 
+						min='0' max='1000' 
+						value={percent}
+						onChange={e => setPercent(Number(e.target.value))}
+					/>
+				</div>
+				<div>
+					<label>Періодичність:</label>
+					<select name="" id=""
+						value={percentPeriod}
+						onChange={e => setPercentPeriod(Number(e.target.value))}>
+						<option value="1">Кожен рік</option>
+						<option value="2">Кожні півроку</option>
+						<option value="4">Кожен квартал</option>
+						<option value="12">Кожен місяць</option>
+					</select>
+				</div>
+			</div>			
 			<div>
 				<label>Кількість років:</label>
-				<input type="number" min='1' max='100' value={years} onChange={handleYearsChange} />
+				<input 
+					type="number" 
+					min='1' 
+					max='100' 
+					value={years}
+					onChange={e => setYears(Number(e.target.value))}
+				/>
 			</div>
 			<div>
-				<button onClick={calculateSimpleInterest}>Обчислити простий відсоток</button>
-				<button onClick={calculateCompoundInterest}>Обчислити складний відсоток</button>
+				<button >Обчислити простий відсоток</button>
+				<button 
+					onClick={() => {
+						const list: string[] = countCompoundPercent()[0];
+						[totalBalance, totalAccruedInterest, accruedInterest, accruedReFill] = [[],[] ,[] ,[]];
+						setIncome(list[list.length - 1])}}>
+					Обчислити складний відсоток</button>
 			</div>
 			<div>
 				<label>Очікувана сума за простим відсотком:</label>
-				<span>{simpleInterest}</span>
+				<span></span>
 			</div>
 			<div>
 				<label>Очікувана сума за складним відсотком:</label>
-				<span>{compoundInterest}</span>
+				<span>{income}</span>
 			</div>
 		</div>
 	)
 }
 
-export default Calculator;
+export default CalcArea;
