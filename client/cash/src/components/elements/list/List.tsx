@@ -6,8 +6,7 @@ import { Context } from '../../..';
 import { useContext, useEffect, useState } from 'react';
 import { ListItem } from '../../../models/ListItem';
 
-
-const List = () => {
+export const UpdateList = () => {
 
 	const [items, setItems] = useState<Array<ListItem>>([]);
 	const {store} = useContext(Context);
@@ -21,6 +20,14 @@ const List = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	return items;
+}
+
+const List = () => {
+
+	const items = UpdateList();
+
+	const {store} = useContext(Context);
 	const [tooltipText, setTooltipText] = useState('Клацніть, щоб скопіювати');
 
 	const handleCopyAmount = (event: React.MouseEvent<HTMLTableCellElement>) => {
@@ -51,7 +58,7 @@ const List = () => {
                 </thead>
                 <tbody>
                   {items.map((element) => (
-                    <tr key={Number(element._id)}>
+                    <tr key={Number(element.item_id)}>
                       	<td>
 							<button className="edit"><img src={edit} alt="Edit icon" /></button>
 						</td>
@@ -63,7 +70,14 @@ const List = () => {
 						>{element.value}</td>
                       	<td>{element.date}</td>
                       	<td>
-							<button className="delete"><img src={deleteIcon} alt="Delete icon" /></button>
+							<button onClick={(event) => {
+									event.preventDefault(); 
+										store.delete(); 
+										document.querySelectorAll('input').forEach(element => {
+										element.value = '';
+									});
+								}} 
+							className="delete"><img src={deleteIcon} alt="Delete icon" /></button>
 						</td>
                     </tr>
                   ))}

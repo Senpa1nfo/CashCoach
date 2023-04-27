@@ -1,8 +1,14 @@
 import './Adding.sass';
 import { Context } from '../../..';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UpdateList } from '../list/List';
+import { ListItem } from '../../../models/ListItem';
 
 const Adding = () => {
+
+    document.querySelector('.adding__btn_1')?.addEventListener('click ',() => {
+        console.log(123);
+    })
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [description, setDescription] = useState<string>('');

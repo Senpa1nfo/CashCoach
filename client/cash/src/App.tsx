@@ -7,7 +7,6 @@ import Adding from './components/elements/adding/Adding';
 import Menu from './components/elements/menu/Menu';
 import WorkingArea from './components/elements/workingArea/WorkingArea';
 
-
 function App() {
 
 	const {store} = useContext(Context);

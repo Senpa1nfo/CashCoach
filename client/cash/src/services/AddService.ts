@@ -6,6 +6,10 @@ export default class AddService {
         return $api.post<IUser>('/add', {description, value, bool});
     }
 
+    static async delete(): Promise<void> {
+        return $api.post('/delete');
+    }
+
     static async generate_list() {
         return $api.get('/generate-list');
     }

@@ -93,6 +93,8 @@ class UserController {
             const user_id = userData.user.id;
             const {description, value, bool} = req.body;
 
+            const item_id = Math.floor(Math.random() * 100000000000000000000000);
+
             const year = new Date().getFullYear();
             const month = new Date().getMonth();
             const day = new Date().getDate();
@@ -100,7 +102,20 @@ class UserController {
             const minutes = new Date().getMinutes();
             const date = `${day}/${month + 1}/${year} ${hours}:${minutes}`;
 
-            const item = await AddService.add(user_id, description, value, bool, date); 
+            const item = await AddService.add(item_id, user_id, description, value, bool, date); 
+            return res.json(item);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies;
+            const userData = await UserService.refresh(refreshToken); 
+            const user_id = userData.user.id;
+
+            const item = await AddService.delete(user_id); 
             return res.json(item);
         } catch (error) {
             next(error);

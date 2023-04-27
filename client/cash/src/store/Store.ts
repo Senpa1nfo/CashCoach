@@ -44,15 +44,6 @@ export default class Store {
         }
     }
 
-    async add(description: string, value: string, bool: boolean) {
-        try {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const response = await AddService.add(description, value, bool);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async logout() {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -80,6 +71,24 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async add(description: string, value: string, bool: boolean) {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AddService.add(description, value, bool);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async delete() {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AddService.delete();
         } catch (error) {
             console.log(error);
         }
