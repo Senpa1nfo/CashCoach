@@ -114,8 +114,9 @@ class UserController {
             const {refreshToken} = req.cookies;
             const userData = await UserService.refresh(refreshToken); 
             const user_id = userData.user.id;
-
-            const item = await AddService.delete(user_id); 
+            const {item_id} = req.body;
+            
+            const item = await AddService.delete(item_id, user_id); 
             return res.json(item);
         } catch (error) {
             next(error);

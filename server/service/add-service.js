@@ -11,8 +11,8 @@ class AddService {
         return item;
     }
 
-    async delete(user_id) {
-        const item =  await AddModel.findOneAndDelete({user_id});
+    async delete(item_id, user_id) {
+        const item =  await AddModel.findOneAndDelete({item_id, user_id});
         return item;
     }
 }

@@ -1,8 +1,6 @@
 import './Adding.sass';
 import { Context } from '../../..';
-import { useContext, useEffect, useState } from 'react';
-import { UpdateList } from '../list/List';
-import { ListItem } from '../../../models/ListItem';
+import { useContext, useState } from 'react';
 
 const Adding = () => {
 

@@ -8,26 +8,34 @@ import { ListItem } from '../../../models/ListItem';
 
 export const UpdateList = () => {
 
+	document.querySelectorAll('.adding__btn')?.forEach((element) => {
+		element.addEventListener('click', () => {
+			changeBool();
+		})
+	})
+
+	// Генерация и обновление списка
 	const [items, setItems] = useState<Array<ListItem>>([]);
 	const {store} = useContext(Context);
 
-    useEffect(() => {
+	const [bool, setBool] = useState(false);
+	const changeBool = () => {	
+		console.log(1);
+		
+		setBool(bool => !bool);
+	}
+
+	useEffect(() => {
 		async function fetchData() {
 			const res = await store.generate_list();
 			setItems(res);
 		}
 		fetchData();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [bool]);
 
-	return items;
-}
 
-const List = () => {
-
-	const items = UpdateList();
-
-	const {store} = useContext(Context);
+	// Копирование текста по нажатию
 	const [tooltipText, setTooltipText] = useState('Клацніть, щоб скопіювати');
 
 	const handleCopyAmount = (event: React.MouseEvent<HTMLTableCellElement>) => {
@@ -43,46 +51,43 @@ const List = () => {
 		}
 	};
 
+	return (
+		<tbody>
+			{items.map((element) => (
+				<tr key={Number(element.item_id)}>
+					<td>
+						<button onClick={() => changeBool()} className="edit"><img src={edit} alt="" /></button>
+					</td>
+					<td>{element.description}</td>
+					<td
+						style={{color: element.bool ? '#27AE60' : '#FC4C4F'}}
+						data-tooltip={tooltipText}
+						onClick={handleCopyAmount}
+					>{element.value}</td>
+					<td>{element.date}</td>
+					<td>
+						<button onClick={() => {
+							store.delete(Number(element.item_id));
+							setTimeout(changeBool, 100);
+						}} 
+							className="delete"><img src={deleteIcon} alt="Delete icon" />
+						</button>
+					</td>
+				</tr>
+			))}
+        </tbody>
+	)
+}
+
+const List = () => {
     return(
         <div className='list'>
 			<Search/>
-            <table>
-                <thead>
-					<tr>
-						<th>Ред.</th>
-						<th>Опис</th>
-						<th>Сума</th>
-						<th>Дата</th>
-						<th>Вид.</th>
-					</tr>
-                </thead>
-                <tbody>
-                  {items.map((element) => (
-                    <tr key={Number(element.item_id)}>
-                      	<td>
-							<button className="edit"><img src={edit} alt="Edit icon" /></button>
-						</td>
-                      	<td>{element.description}</td>
-                    	<td
-							style={{color: element.bool ? '#27AE60' : '#FC4C4F'}}
-							data-tooltip={tooltipText}
-							onClick={handleCopyAmount}
-						>{element.value}</td>
-                      	<td>{element.date}</td>
-                      	<td>
-							<button onClick={(event) => {
-									event.preventDefault(); 
-										store.delete(); 
-										document.querySelectorAll('input').forEach(element => {
-										element.value = '';
-									});
-								}} 
-							className="delete"><img src={deleteIcon} alt="Delete icon" /></button>
-						</td>
-                    </tr>
-                  ))}
-                </tbody>
-            </table>
+			<div className="table">
+				<table>
+					<UpdateList></UpdateList>
+				</table>
+			</div>
         </div>      
     )
 }
