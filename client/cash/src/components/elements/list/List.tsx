@@ -84,7 +84,7 @@ const List = () => {
         <div className='list'>
 			<Search/>
 			<div className="table">
-				<table>
+				<table className='list__table'>
 					<UpdateList></UpdateList>
 				</table>
 			</div>
