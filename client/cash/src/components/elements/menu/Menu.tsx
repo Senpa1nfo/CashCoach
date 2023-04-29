@@ -1,31 +1,5 @@
 import './Menu.sass';
 
-// const changeArea = (num: number) => {
-
-//     const btns = document.querySelectorAll('.menu__btn');
-
-//     switch (num) {
-//         case 1:
-//             for (let i = 0; i < btns.length; i++) {
-//                 i === 0 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
-//                 i === 0 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
-//             }
-//             break;
-//         case 2:
-//             for (let i = 0; i < btns.length; i++) {
-//                 i === 1 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
-//                 i === 1 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
-//             }
-//             break;
-//         case 3:
-//             for (let i = 0; i < btns.length; i++) {
-//                 i === 2 ? menu_btns[i]?.classList.remove('none') : menu_btns[i]?.classList.add('none');       
-//                 i === 2 ? btns[i].classList.add('menu__btn__active') : btns[i].classList.remove('menu__btn__active');      
-//             }
-//             break;
-//     }
-// }
-
 export const switchButtons = (num: number, data: any[], elements: string, active: string) => {
 
     const btns = document.querySelectorAll(elements);
@@ -51,6 +25,13 @@ const Menu = () => {
         '.list',
         '.stats',
         '.calculator'
+    ];
+    const btnsStatsContent: any[] = [
+        '.stats-day',
+        '.stats-week',
+        '.stats-month',
+        '.stats-year',
+        '.stats-general',
     ];
     return(
         <div className='menu'>

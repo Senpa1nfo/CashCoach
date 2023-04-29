@@ -1,8 +1,8 @@
 const AddModel = require('../models/add-model');
 
 class AddService {
-    async add(item_id, user_id, description, value, bool, date) {
-        const item =  await AddModel.create({item_id, user_id, description, value, bool, date});
+    async add(item_id, user_id, description, value, bool, date, timeAdded) {
+        const item =  await AddModel.create({item_id, user_id, description, value, bool, date, timeAdded});
         return item;
     }
 

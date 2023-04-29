@@ -1,3 +1,5 @@
+import './Chart.sass';
+
 import {
   Chart as ChartJS,
   CategoryScale,
