@@ -4,5 +4,6 @@ export interface ListItem {
     description: String,
     value: String,
     bool: Boolean,
-    date: String
+    date: String,
+    timeAdded: Date
 }

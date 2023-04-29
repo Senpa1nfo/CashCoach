@@ -101,8 +101,9 @@ class UserController {
             const hours = new Date().getHours();
             const minutes = new Date().getMinutes();
             const date = `${day}/${month + 1}/${year} ${hours}:${minutes}`;
+            const timeAdded = new Date();
 
-            const item = await AddService.add(item_id, user_id, description, value, bool, date); 
+            const item = await AddService.add(item_id, user_id, description, value, bool, date, timeAdded); 
             return res.json(item);
         } catch (error) {
             next(error);
