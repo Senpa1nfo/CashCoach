@@ -34,11 +34,7 @@ function SumArea() {
       alert('Введіть коректну суму!');
       return;
     }
-    if (!percent || percent <= 0) {
-      alert('Введіть коректний відсоток!');
-      return;
-    }
-    if (!period || period <= 1) {
+    if (!period || period < 1) {
       alert('Введіть коректний період!');
       return;
     }
@@ -48,41 +44,48 @@ function SumArea() {
 
     if (outputRef.current) {
       outputRef.current.innerHTML = '';
-      outputRef.current.innerHTML += <p>Заощадження: ${savings.toFixed(2)}</p>;
+	  outputRef.current.innerHTML += `<div>`;
+	  outputRef.current.innerHTML += `<h3>Результат</h3>`;
+      outputRef.current.innerHTML += `<p>Заощадження: ${savings.toFixed(2)}</p>`;
       if(period === 1) {
-        outputRef.current.innerHTML += <p>Можна витратити за ${period} день: ${(sum/period).toFixed(2)}</p>
+        outputRef.current.innerHTML += `<p>Можна витратити за ${period} день: ${(sum/period).toFixed(2)}</p>`;
+		outputRef.current.innerHTML += `</div>`;
       } else if (period > 1) {
-        outputRef.current.innerHTML += <p>За ${period} ${rightWordEnding(period, ['день', 'дні', 'днів'])} у день можна витрачати по: ${(sum/period).toFixed(2)}</p>
+        outputRef.current.innerHTML += `<p>За ${period} ${rightWordEnding(period, ['день', 'дні', 'днів'])} у день можна витрачати по: ${(sum/period).toFixed(2)}</p>`;
+		outputRef.current.innerHTML += `</div>`;
       }
-      outputRef.current.innerHTML += <h3>До прикладу</h3>;
-      outputRef.current.innerHTML += <p>На день з місяця можна витрачати по: ${(sum/30).toFixed(2)}</p>;
-      outputRef.current.innerHTML += <p>На тиждень з місяця можна витрачати по: ${(sum/4).toFixed(2)}</p>;
+	  outputRef.current.innerHTML += `<div>`;
+      outputRef.current.innerHTML += `<h3>До прикладу</h3>`;
+      outputRef.current.innerHTML += `<p>На день з місяця можна витрачати по: ${(sum/30).toFixed(2)}</p>`;
+      outputRef.current.innerHTML += `<p>На тиждень з місяця можна витрачати по: ${(sum/4).toFixed(2)}</p>`;
+	  outputRef.current.innerHTML += `</div>`;
     }
 
   }
     
-  return (
-    <div>
-      <h2>Опрацювання суми</h2>
-      <label>
-        Введіть суму:
-        <input type="number" step='1000' value={amount} min='0' max='900000' onChange={handleAmountChange} />
-      </label>
-      <br />
-      <label>
-        Введіть відсоток для заощадження:
-        <input type="number" step="1" value={percent} min='0' max='100' onChange={handlePercentChange} />
-      </label>
-      <br />
-      <label>
-        Введіть термін у днях:
-        <input type="number" value={period} min='1' max='100' onChange={handlePeriodChange} />
-      </label>
-      <br />
-      <button onClick={handleCalculate}>Обрахувати</button>
-      <div ref={outputRef}></div>
-    </div>
-  )
+	return (
+		<div>
+			<h2 className='title'>Опрацювання суми</h2>
+			<div className='wrapper'>
+				<div className="process">
+					<div className="process__item">
+						<label data-tooltip='(Можна скопіювати з історії)'>Введіть суму:</label>
+						<input type="number" step='1000' value={amount} min='0' max='900000' onChange={handleAmountChange} />
+					</div>
+					<div className="process__item">
+						<label data-tooltip='Залиште певний відсоток на чорний день'>Введіть відсоток для заощадження:</label>
+						<input type="number" step="1" value={percent} min='0' max='100' onChange={handlePercentChange} />
+					</div>
+					<div className="process__item">
+						<label data-tooltip='Період на який ви хочете розподілити цю суму'>Введіть термін у днях:</label>
+						<input type="number" value={period} min='1' max='100' onChange={handlePeriodChange} />
+					</div>
+					<button onClick={handleCalculate}>Обрахувати</button>
+				</div>
+				<div className='result' ref={outputRef}><h3 style={{ marginTop: 150, fontSize: 22 }}>Результат з'явиться тут</h3></div>
+			</div>
+		</div>
+	)
 }    
 
 export default SumArea;

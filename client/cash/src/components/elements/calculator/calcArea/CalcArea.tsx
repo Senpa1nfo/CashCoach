@@ -1,17 +1,15 @@
-import { switchButtons } from '../../menu/Menu';
 import './CalcArea.sass';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const CalcArea = () => {
 	
 	// Расчёт сложного процента
-	const [startSum, setStartSum] = useState(0);
+	const [startSum, setStartSum] = useState(1000);
 	const [reFill, setReFill] = useState(0);
 	const [sumPeriod, setSumPeriod] = useState(1);
 	const [percent, setPercent] = useState(1);
 	const [percentPeriod, setPercentPeriod] = useState(1);
-	const [years, setYears] = useState(10);
-	const [income, setIncome] = useState('');
+	const [years, setYears] = useState(1);
 
 	let incomeForYears = 0;
 	let accruedReFill: string[] = [];
@@ -68,7 +66,7 @@ const CalcArea = () => {
 	}
 
 	countCompoundPercent();
-
+		
 	return (
 		<div className='calcArea'>
 			<h2>Калькулятор відсотків</h2>
@@ -76,7 +74,7 @@ const CalcArea = () => {
 				<div className="calcArea__input">
 					<div className='calcArea__row'>
 						<div className='calcArea__col'>
-							<label>Початкова сума:</label>
+							<label data-tooltip='Сума, яку ви хочете інвестувати'>Початкова сума:</label>
 							<input 
 								type="number" 
 								step='1000' 
@@ -86,7 +84,7 @@ const CalcArea = () => {
 							/>
 						</div>
 						<div className='calcArea__col'>
-							<label>Кількість років:</label>
+							<label data-tooltip='Період на який ви хочете вкласти гроші'>Кількість років:</label>
 							<input 
 								type="number" 
 								min='1' 
@@ -98,7 +96,7 @@ const CalcArea = () => {
 					</div>
 					<div className='calcArea__row'>
 						<div className='calcArea__col'>
-							<label>Сума поповнення:</label>
+							<label data-tooltip='Сума, яку ви плануєте додавати до основної'>Сума поповнення:</label>
 							<input 
 								type="number" 
 								step="100" 
@@ -108,12 +106,12 @@ const CalcArea = () => {
 							/>
 						</div>
 						<div className='calcArea__col'>
-							<label>Періодичність:</label>
+							<label data-tooltip='Частота поповнень ваших вкладень'>Періодичність:</label>
 							<select name="" id=""
 								value={sumPeriod}
 								onChange={e => setSumPeriod(Number(e.target.value))}>
 								<option value="1">Кожен рік</option>
-								<option value="2">Кожні півроку</option>
+								<option value="2">Кожні пів року</option>
 								<option value="4">Кожен квартал</option>
 								<option value="12">Кожен місяць</option>
 							</select>
@@ -121,55 +119,64 @@ const CalcArea = () => {
 					</div>	
 					<div className='calcArea__row'>
 						<div className='calcArea__col'>
-							<label>Річна відсоткова ставка (%):</label>
+							<label data-tooltip='Відсоток від суми, який нараховуватиметься'>Відсоткова ставка (%):</label>
 							<input 
 								type="number" 
-								step="1" 
-								min='0' max='1000' 
+								step="0.25" 
+								min='0.25' max='1000' 
 								value={percent}
 								onChange={e => setPercent(Number(e.target.value))}
 							/>
 						</div>
 						<div className='calcArea__col'>
-							<label>Періодичність:</label>
+							<label data-tooltip='Частота нарахування відсотків'>Періодичність:</label>
 							<select name="" id=""
 								value={percentPeriod}
 								onChange={e => setPercentPeriod(Number(e.target.value))}>
 								<option value="1">Кожен рік</option>
-								<option value="2">Кожні півроку</option>
+								<option value="2">Кожні пів року</option>
 								<option value="4">Кожен квартал</option>
 								<option value="12">Кожен місяць</option>
 							</select>
 						</div>
 					</div>			
 				</div>
-				
-				<div className="table calcArea__div-table">
-					<table className="calcArea__table">
-						<thead className='calcArea__table__head'>
-							<tr>
-								<th className="calcArea__table__th">Год</th>
-								<th className="calcArea__table__th">Начальный баланс</th>
-								<th className="calcArea__table__th">Суммарные пополнения</th>
-								<th className="calcArea__table__th">Начисленные проценты</th>
-								<th className="calcArea__table__th">Суммарный процент</th>
-								<th className="calcArea__table__th">Итоговый баланс</th>
-							</tr>
-						</thead>
-						<tbody className='calcArea__table__body'>
-							{accruedReFill.map((element, index) => (
+				<div className="wrapper">
+					<ul className='calcArea__table__list'>		
+						<li className="calcArea__table__li">Рік</li>
+						<li className="calcArea__table__li">Початковий баланс</li>
+						<li className="calcArea__table__li">Сумарні поповнення</li>
+						<li className="calcArea__table__li">Нараховані відсотки</li>
+						<li className="calcArea__table__li">Сумарний відсоток</li>
+						<li className="calcArea__table__li">Підсумковий баланс</li>	
+					</ul>
+					<div className="table calcArea__div-table">
+						<table className="calcArea__table">
+							<thead className='calcArea__table__head'>
 								<tr>
-									<td className="calcArea__table__th">{index + 1}</td>
-									<td className="calcArea__table__th">{totalBalance[index]}</td>
-									<td className="calcArea__table__th">{element}</td>
-									<td className="calcArea__table__th">{accruedInterest[index]}</td>
-									<td className="calcArea__table__th">{totalAccruedInterest[index]}</td>
-									<td className="calcArea__table__th">{totalBalance[index + 1]}</td>
+									<th className="calcArea__table__th"></th>
+									<th className="calcArea__table__th"></th>
+									<th className="calcArea__table__th"></th>
+									<th className="calcArea__table__th"></th>
+									<th className="calcArea__table__th"></th>
+									<th className="calcArea__table__th"></th>
 								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>	
+							</thead>
+							<tbody className='calcArea__table__body'>
+								{accruedReFill.map((element, index) => (
+									<tr className="calcArea__table__tr">
+										<td className="calcArea__table__td">{index + 1}</td>
+										<td className="calcArea__table__td">{totalBalance[index]}</td>
+										<td className="calcArea__table__td">{element}</td>
+										<td className="calcArea__table__td">{accruedInterest[index]}</td>
+										<td className="calcArea__table__td">{totalAccruedInterest[index]}</td>
+										<td className="calcArea__table__td">{totalBalance[index + 1]}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>	
+					</div>
+				</div>
 			</div>
 		</div>
 	)
