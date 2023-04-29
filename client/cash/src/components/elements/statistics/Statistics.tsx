@@ -71,7 +71,7 @@ const Statistics = () => {
                 <button className="stats__btn" onClick={() => {switchButtons(4, btnsContent, '.stats__btn', 'stats__btn__active')}}>За рік</button>
                 <button className="stats__btn" onClick={() => {switchButtons(5, btnsContent, '.stats__btn', 'stats__btn__active')}}>За весь час</button>
             </div>
-            <div className="stats-day">
+            <div className="stats-day none">
                 <Chart
                     labels={["Статистика витрат"]}
                     datasets={[
@@ -90,7 +90,7 @@ const Statistics = () => {
                     ]}
                 />
             </div>
-            <div className="stats-week">
+            <div className="stats-week none">
                 <Chart 
                 labels={["Статистика витрат"]}
                 datasets={[
@@ -109,7 +109,7 @@ const Statistics = () => {
                 ]}
             />
         </div>
-        <div className="stats-month">
+        <div className="stats-month none">
             <Chart
                 labels={["Статистика витрат"]}
                 datasets={[{
@@ -127,7 +127,7 @@ const Statistics = () => {
                 ]}
             />
         </div>
-        <div className="stats-year">
+        <div className="stats-year none">
             <Chart
                 labels={["Статистика витрат"]}
                 datasets={[
@@ -146,7 +146,7 @@ const Statistics = () => {
                 ]}
             />
         </div>
-        <div className="stats-general">
+        <div className="stats-general none">
             <Chart
                 labels={["Статистика витрат"]}
                 datasets={[
