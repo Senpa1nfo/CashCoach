@@ -1,19 +1,23 @@
 import './List.sass';
-import Search from '../search/Search';
+import search from '../../../icons/search.svg';
 import edit from '../../../icons/edit.svg';
 import deleteIcon from '../../../icons/delete.svg';
 import { Context } from '../../..';
 import { useContext, useEffect, useState } from 'react';
 import { ListItem } from '../../../models/ListItem';
 
-export const UpdateList = () => {
+interface UpdateListProps {
+	searchQuery: string;
+}
+  
+export const UpdateList = ({ searchQuery }: UpdateListProps) => {
 
 	document.querySelectorAll('.adding__btn')?.forEach((element) => {
 		element.addEventListener('click', () => {
 			changeBool();
 		})
 	})
-
+	
 	// Генерация и обновление списка
 	const [items, setItems] = useState<Array<ListItem>>([]);
 	const {store} = useContext(Context);
@@ -34,6 +38,11 @@ export const UpdateList = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [bool]);
 
+	const filteredItems = items.filter((item) =>
+		item.description.toLowerCase().includes(searchQuery.toLowerCase()) 
+		|| item.value.includes(searchQuery)
+		|| item.date.includes(searchQuery)
+	);
 
 	// Копирование текста по нажатию
 	const [tooltipText, setTooltipText] = useState('Клацніть, щоб скопіювати');
@@ -50,10 +59,11 @@ export const UpdateList = () => {
 		}, 2000);
 		}
 	};
-
+	console.log(filteredItems);
+	
 	return (
 		<tbody>
-			{items.map((element) => (
+			{filteredItems.map((element) => (
 				<tr key={Number(element.item_id)}>
 					<td>
 						<button onClick={() => changeBool()} className="edit"><img src={edit} alt="" /></button>
@@ -80,12 +90,27 @@ export const UpdateList = () => {
 }
 
 const List = () => {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchQuery(event.target.value);
+	};
+
     return(
         <div className='list'>
-			<Search/>
-			<div className="table">
+			<div className='search-panel'>
+            <div className="search-panel__search">
+                <input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Search...' />
+                <img src={search} alt="magnifier" className="search-panel__search__icon"/>
+            </div>
+            <div className="search-panel__sort">
+                <button className="search-panel__filter">сума</button>
+                <button className="search-panel__filter">дата</button>
+            </div>
+        </div>  
+      		<div className='table'>
 				<table className='list__table'>
-					<UpdateList></UpdateList>
+					<UpdateList searchQuery={searchQuery} />
 				</table>
 			</div>
         </div>      
