@@ -8,41 +8,54 @@ import { ListItem } from '../../../models/ListItem';
 
 interface UpdateListProps {
 	searchQuery: string;
-}
+	sortColumn: string;
+	sortDirection: string;
+  }
   
-export const UpdateList = ({ searchQuery }: UpdateListProps) => {
+const UpdateList = ({ searchQuery, sortColumn, sortDirection }: UpdateListProps) => {
+	const [items, setItems] = useState<Array<ListItem>>([]);
+	const { store } = useContext(Context);
+	const [bool, setBool] = useState(false);
+	const changeBool = () => {
+	  setBool(bool => !bool);
+	};
 
 	document.querySelectorAll('.adding__btn')?.forEach((element) => {
 		element.addEventListener('click', () => {
 			changeBool();
 		})
 	})
-	
-	// Генерация и обновление списка
-	const [items, setItems] = useState<Array<ListItem>>([]);
-	const {store} = useContext(Context);
-
-	const [bool, setBool] = useState(false);
-	const changeBool = () => {	
-		console.log(1);
-		
-		setBool(bool => !bool);
-	}
-
+  
 	useEffect(() => {
-		async function fetchData() {
-			const res = await store.generate_list();
-			setItems(res);
-		}
-		fetchData();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [bool]);
-
+	  async function fetchData() {
+		const res = await store.generate_list();
+		setItems(res);
+	  }
+	  fetchData();
+	}, [bool, store]);
+  
 	const filteredItems = items.filter((item) =>
-		item.description.toLowerCase().includes(searchQuery.toLowerCase()) 
-		|| item.value.includes(searchQuery)
-		|| item.date.includes(searchQuery)
+	  item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+	  item.value.includes(searchQuery) ||
+	  item.date.includes(searchQuery)
 	);
+  
+const sortedItems = sortColumn && sortDirection
+  ? filteredItems.sort((a:any, b:any) => {
+      let aValue = a.bool ? a.value : -a.value;
+      let bValue = b.bool ? b.value : -b.value;
+
+      if (sortColumn === "amount") {
+        return sortDirection === "asc" ? aValue - bValue : bValue - aValue;
+      } else if (sortColumn === "date") {
+        return sortDirection === "asc"
+          ? new Date(a.timeAdded).getTime() - new Date(b.timeAdded).getTime()
+          : new Date(b.timeAdded).getTime() - new Date(a.timeAdded).getTime();
+      } else {
+        return 0;
+      }
+    })
+  : filteredItems;
 
 	// Копирование текста по нажатию
 	const [tooltipText, setTooltipText] = useState('Клацніть, щоб скопіювати');
@@ -58,63 +71,84 @@ export const UpdateList = ({ searchQuery }: UpdateListProps) => {
 				setTooltipText('Клацніть, щоб скопіювати');
 		}, 2000);
 		}
-	};
-	console.log(filteredItems);
-	
+	}
+
 	return (
 		<tbody>
-			{filteredItems.map((element) => (
-				<tr key={Number(element.item_id)}>
-					<td>
-						<button onClick={() => changeBool()} className="edit"><img src={edit} alt="" /></button>
-					</td>
-					<td>{element.description}</td>
-					<td
+		  {sortedItems.map((element) => (
+			<tr key={Number(element.item_id)}>
+				<td><button onClick={() => changeBool()} className="edit"><img src={edit} alt="" /></button></td>
+				<td>{element.description}</td>
+				<td
 						style={{color: element.bool ? '#27AE60' : '#FC4C4F'}}
 						data-tooltip={tooltipText}
 						onClick={handleCopyAmount}
 					>{element.value}</td>
-					<td>{element.date}</td>
-					<td>
-						<button onClick={() => {
+				<td>{element.date}</td>
+				<td>
+					<button onClick={() => {
 							store.delete(Number(element.item_id));
 							setTimeout(changeBool, 100);
 						}} 
 							className="delete"><img src={deleteIcon} alt="Delete icon" />
-						</button>
-					</td>
-				</tr>
-			))}
-        </tbody>
+					</button>
+				</td>
+			</tr>
+		  ))}
+		</tbody>
 	)
 }
 
 const List = () => {
 	const [searchQuery, setSearchQuery] = useState('');
-
+	const [sortColumn, setSortColumn] = useState('');
+	const [sortDirection, setSortDirection] = useState('');
+  
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchQuery(event.target.value);
+	  setSearchQuery(event.target.value);
 	};
-
-    return(
-        <div className='list'>
+  
+	const handleSortByAmount = () => {
+	  if (sortColumn === 'amount' && sortDirection === 'asc') {
+		setSortDirection('desc');
+	  } else {
+		setSortColumn('amount');
+		setSortDirection('asc');
+	  }
+	};
+  
+	const handleSortByDate = () => {
+	  if (sortColumn === 'date' && sortDirection === 'asc') {
+		setSortDirection('desc');
+	  } else {
+		setSortColumn('date');
+		setSortDirection('asc');
+	  }
+	};
+  
+	return (
+		<div className='list'>
 			<div className='search-panel'>
-            <div className="search-panel__search">
-                <input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Search...' />
-                <img src={search} alt="magnifier" className="search-panel__search__icon"/>
-            </div>
-            <div className="search-panel__sort">
-                <button className="search-panel__filter">сума</button>
-                <button className="search-panel__filter">дата</button>
-            </div>
-        </div>  
-      		<div className='table'>
+				<div className="search-panel__search">
+					<input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Пошук...' />
+					<img src={search} alt="magnifier" className="search-panel__search__icon"/>
+				</div>
+				<div className="search-panel__sort">
+					<button onClick={handleSortByAmount} 
+						className={`search-panel__filter ${sortColumn === 'amount' && `search-panel__filter--active ${sortDirection === 'asc' ? 'search-panel__filter--asc' : 'search-panel__filter--desc'}`}`}>
+							сума<span id="sortIcon">{sortColumn === "amount" ? (sortDirection === "asc" ? "↑" : "↓") : ""}</span></button>
+					<button onClick={handleSortByDate}
+						className={`search-panel__filter ${sortColumn === 'date' && `search-panel__filter--active ${sortDirection === 'asc' ? 'search-panel__filter--asc' : 'search-panel__filter--desc'}`}`}>
+							дата<span id="sortIcon">{sortColumn === "date" ? (sortDirection === "asc" ? "↑" : "↓") : ""}</span></button>
+				</div>
+			</div>  
+			<div className='table'>
 				<table className='list__table'>
-					<UpdateList searchQuery={searchQuery} />
+					<UpdateList searchQuery={searchQuery} sortColumn={sortColumn} sortDirection={sortDirection} />
 				</table>
 			</div>
-        </div>      
-    )
-}
+		</div>
+)}
+  
 
 export default List;
