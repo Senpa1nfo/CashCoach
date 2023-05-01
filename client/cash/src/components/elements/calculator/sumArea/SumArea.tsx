@@ -21,7 +21,7 @@ function SumArea() {
 
   const handlePeriodChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(event.target.value);
-    const newValue = value > 100 ? 100 : value;
+    const newValue = value > 35000 ? 35000 : value;
     setPeriod(newValue);
     }
 
@@ -74,7 +74,7 @@ function SumArea() {
 					</div>
 					<div className="process__item">
 						<label data-tooltip='Залиште певний відсоток на чорний день'>Введіть відсоток для заощадження:</label>
-						<input type="number" step="1" value={percent} min='0' max='100' onChange={handlePercentChange} />
+						<input type="number" step="1" value={percent} min='0' max='35000' onChange={handlePercentChange} />
 					</div>
 					<div className="process__item">
 						<label data-tooltip='Період на який ви хочете розподілити цю суму'>Введіть термін у днях:</label>
