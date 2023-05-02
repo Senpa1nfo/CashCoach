@@ -8,11 +8,8 @@ const Adding = () => {
         console.log(123);
     })
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [description, setDescription] = useState<string>('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = useState<string>('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const {store} = useContext(Context);
 
     return (

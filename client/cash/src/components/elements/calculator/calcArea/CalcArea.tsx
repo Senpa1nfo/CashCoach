@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const CalcArea = () => {
 	
-	// Расчёт сложного процента
+	// Складний відсоток
 	const [startSum, setStartSum] = useState(1000);
 	const [reFill, setReFill] = useState(0);
 	const [sumPeriod, setSumPeriod] = useState(1);
@@ -21,8 +21,7 @@ const CalcArea = () => {
 
 	const countCompoundPercent = (): any => {
 		if (currentYear === 0) {
-			totalBalance.push((Math.floor(incomeForYears).toLocaleString()));	
-			console.log([totalBalance, totalAccruedInterest, accruedInterest, accruedReFill]);
+			totalBalance.push((Math.floor(incomeForYears).toLocaleString()));
 			return [totalBalance, totalAccruedInterest, accruedInterest, accruedReFill];
 		}
 
@@ -164,7 +163,7 @@ const CalcArea = () => {
 							</thead>
 							<tbody className='calcArea__table__body'>
 								{accruedReFill.map((element, index) => (
-									<tr className="calcArea__table__tr">
+									<tr key={index} className="calcArea__table__tr">
 										<td className="calcArea__table__td">{index + 1}</td>
 										<td className="calcArea__table__td">{totalBalance[index]}</td>
 										<td className="calcArea__table__td">{element}</td>

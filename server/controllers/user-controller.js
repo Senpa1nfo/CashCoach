@@ -8,7 +8,7 @@ class UserController {
         try {
             const errors = validationResult(req);
             if(!errors.isEmpty()) {
-                return next(ApiError.BadRequest('Ошибка при валидации', errors.array()));
+                return next(ApiError.BadRequest('Помилка під час валідації', errors.array()));
             }
             const {email, password} = req.body;
             const userData = await UserService.registration(email, password); 
@@ -93,8 +93,6 @@ class UserController {
             const user_id = userData.user.id;
             const {description, value, bool} = req.body;
 
-            const item_id = Math.floor(Math.random() * 100000000000000000000000);
-
             const year = new Date().getFullYear();
             const month = new Date().getMonth();
             const day = new Date().getDate();
@@ -103,7 +101,7 @@ class UserController {
             const date = `${day}/${month + 1}/${year} ${hours}:${minutes}`;
             const timeAdded = new Date();
 
-            const item = await AddService.add(item_id, user_id, description, value, bool, date, timeAdded); 
+            const item = await AddService.add(user_id, description, value, bool, date, timeAdded); 
             return res.json(item);
         } catch (error) {
             next(error);
@@ -115,9 +113,9 @@ class UserController {
             const {refreshToken} = req.cookies;
             const userData = await UserService.refresh(refreshToken); 
             const user_id = userData.user.id;
-            const {item_id} = req.body;
+            const {_id} = req.body;
             
-            const item = await AddService.delete(item_id, user_id); 
+            const item = await AddService.delete(_id, user_id); 
             return res.json(item);
         } catch (error) {
             next(error);

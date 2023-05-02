@@ -85,10 +85,10 @@ export default class Store {
         }
     }
 
-    async delete(item_id: number) {
+    async delete(_id: string) {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const response = await AddService.delete(item_id);
+            const response = await AddService.delete(_id);
         } catch (error) {
             console.log(error);
         }

@@ -4,11 +4,9 @@ import { observer } from 'mobx-react-lite';
 import './LoginForm.sass';
 
 const LoginForm: FC = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     const [email, setEmail] = useState<string>('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [password, setPassword] = useState<string>('');
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const {store} = useContext(Context);
 
     return (

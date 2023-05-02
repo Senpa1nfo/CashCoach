@@ -11,7 +11,7 @@ class MailService {
                 user: process.env.SMPT_USER,
                 pass: process.env.SMPT_PASSWORD
             },
-            tls: { // Убрать в будущем из-за возможности угроз
+            tls: { // Видалити у майбутньому
                 rejectUnauthorized: false
             }
         });
@@ -21,12 +21,12 @@ class MailService {
         await this.transporter.sendMail({
             from: process.env.SMPT_USER,
             to,
-            subject: 'Активация аккаунта на ' + process.env.API_URL,
+            subject: 'Активація облікового запису на' + process.env.API_URL,
             text: '',
             html: 
                 `
                 <div>
-                    <h1>Для Активации перейдите по ссылке</h1>
+                    <h1>Для активації перейдіть за посиланням</h1>
                     <a href="${link}">${link}</a>
                 </div>
                 `

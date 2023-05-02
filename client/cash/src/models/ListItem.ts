@@ -1,5 +1,5 @@
 export interface ListItem {
-    item_id: String,
+    _id: String,
     user_id: String,
     description: String,
     value: String,

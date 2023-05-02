@@ -5,13 +5,13 @@ import Calculator from '../calculator/Calculator';
 
 const WorkingArea = () => {
     return (
-      <div className="working-area">
-        <List />
-        <Statistics />
-        <Calculator />
-      </div>
+        <div className="working-area">
+          <List />
+          <Statistics />
+          <Calculator />
+        </div>
     );
-  };
+};
   
-  export default WorkingArea;
+export default WorkingArea;
   

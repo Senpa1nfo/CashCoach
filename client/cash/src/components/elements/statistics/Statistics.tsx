@@ -17,7 +17,7 @@ const Statistics = () => {
         fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    console.log(items);
+
     const calculateTotal = (duration: string, type: boolean) => {
         let total = 0;
         const today = new Date();

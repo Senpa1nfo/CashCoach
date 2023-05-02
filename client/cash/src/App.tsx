@@ -27,7 +27,7 @@ function App() {
   	// const SendLinkButton = () => {
 	// 	return (
 	// 		<div>
-	// 			Активируйте Аккаунт
+	// 			Активуйте акаунт
 	// 			<button onClick={() => store.sendLink()}>Отправить письмо</button>
 	// 		</div>			
 	// 	)
