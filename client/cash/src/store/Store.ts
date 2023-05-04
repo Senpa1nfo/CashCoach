@@ -94,6 +94,15 @@ export default class Store {
         }
     }
 
+    async edit(_id: string, description: string, value: string, bool: boolean) {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const response = await AddService.edit(_id, description, value, bool);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async generate_list() {
         try {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars

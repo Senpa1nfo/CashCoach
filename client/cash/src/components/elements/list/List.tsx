@@ -2,8 +2,9 @@ import './List.sass';
 import search from '../../../icons/search.svg';
 import { useState } from 'react';
 import UpdateList from './updateList/UpdateList';
+import EditForm from './editForm/EditForm';
 
-const List = () => {
+const List = ({changeBool}: any) => {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [sortColumn, setSortColumn] = useState('');
 	const [sortDirection, setSortDirection] = useState('');
@@ -29,9 +30,22 @@ const List = () => {
 		setSortDirection('asc');
 	  }
 	};
+
+	const [itemId, setItemId] = useState();
+
+	const getId = (id: any) => {
+		setItemId(id);
+	}
+
+	const [changeBoolean, setChangeBoolean] = useState<boolean>();
+
+	const getBool = (bool: boolean) => {
+		setChangeBoolean(bool);
+	}
   
 	return (
 		<div className='list'>
+			<EditForm itemId={itemId} getChangeBool={getBool}></EditForm>
 			<div className='search-panel'>
 				<div className="search-panel__search">
 					<input type='text' value={searchQuery} onChange={handleSearchChange} placeholder='Пошук...' />
@@ -48,7 +62,7 @@ const List = () => {
 			</div>  
 			<div className='table'>
 				<table className='list__table'>
-					<UpdateList searchQuery={searchQuery} sortColumn={sortColumn} sortDirection={sortDirection} />
+					<UpdateList searchQuery={searchQuery} sortColumn={sortColumn} sortDirection={sortDirection} getItemId={getId} getBool={changeBoolean} changeBoolean={changeBool}/>
 				</table>
 			</div>
 		</div>

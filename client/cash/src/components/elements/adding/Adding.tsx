@@ -2,11 +2,15 @@ import './Adding.sass';
 import { Context } from '../../..';
 import { useContext, useState } from 'react';
 
-const Adding = () => {
+const Adding = ({getChangeBool}: any) => {
 
-    document.querySelector('.adding__btn_1')?.addEventListener('click ',() => {
-        console.log(123);
-    })
+    const [bool, setBool] = useState(false);
+
+    const changeBool = () => {
+        setBool(bool => !bool);
+    };
+
+    getChangeBool(bool);
 
     const [description, setDescription] = useState<string>('');
     const [value, setValue] = useState<string>('');
@@ -41,6 +45,7 @@ const Adding = () => {
                             document.querySelectorAll('input').forEach(element => {
                                 element.value = '';
                             });
+                            setTimeout(changeBool, 100);
                         }}>
                         Прибуток
                     </button>
@@ -55,6 +60,7 @@ const Adding = () => {
                             document.querySelectorAll('input').forEach(element => {
                                 element.value = '';
                             });
+                            setTimeout(changeBool, 100);
                         }}>
                         Витрата
                     </button>

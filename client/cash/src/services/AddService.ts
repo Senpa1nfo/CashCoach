@@ -10,6 +10,10 @@ export default class AddService {
         return $api.post('/delete', {_id});
     }
 
+    static async edit(_id: string, description: string, value: string, bool: boolean): Promise<void> {
+        return $api.post('/edit', {_id, description, value, bool});
+    }
+
     static async generate_list() {
         return $api.get('/generate-list');
     }

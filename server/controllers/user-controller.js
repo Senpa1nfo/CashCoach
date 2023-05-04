@@ -35,7 +35,6 @@ class UserController {
             const {refreshToken} = req.cookies;
             const token = await UserService.logout(refreshToken);
             res.clearCookie('refreshToken');
-            console.log(res.json(token));
             return res.json(token);
         } catch (error) {
             next(error);
@@ -116,6 +115,20 @@ class UserController {
             const {_id} = req.body;
             
             const item = await AddService.delete(_id, user_id); 
+            return res.json(item);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async edit(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies;
+            const userData = await UserService.refresh(refreshToken); 
+            const user_id = userData.user.id;
+            const {_id, description, value, bool} = req.body;
+            
+            const item = await AddService.edit(_id, user_id, description, value, bool); 
             return res.json(item);
         } catch (error) {
             next(error);

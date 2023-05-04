@@ -15,6 +15,16 @@ class AddService {
         const item =  await AddModel.findOneAndDelete({_id, user_id});
         return item;
     }
+
+    async edit(_id, user_id, description, value, bool) {
+        const filter = {_id, user_id};
+        const update = {description, value, bool};
+        const item =  await AddModel.findOneAndUpdate(filter, update, {
+            new: true,
+            upsert: true
+        });
+        return item;
+    }
 }
 
 module.exports = new AddService();

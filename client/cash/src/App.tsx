@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { Context } from '.';
 import { observer } from 'mobx-react-lite';
 
@@ -7,9 +7,14 @@ import Adding from './components/elements/adding/Adding';
 import Menu from './components/elements/menu/Menu';
 import WorkingArea from './components/elements/workingArea/WorkingArea';
 
-function App() {
+const App = () => {
 
 	const {store} = useContext(Context);
+	const [changeBoolean, setChangeBoolean] = useState<boolean>();
+
+	const getBool = (bool: boolean) => {
+		setChangeBoolean(bool);
+	}
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
@@ -37,10 +42,10 @@ function App() {
 		<div>
             <Header></Header>
             <main>
-                <Adding></Adding>
+                <Adding getChangeBool={getBool}></Adding>
                 <div className="main-area-wrapper">
                     <Menu></Menu>
-					<WorkingArea></WorkingArea>
+					<WorkingArea getBool={changeBoolean}></WorkingArea>
                 </div>
             </main>
         </div>     

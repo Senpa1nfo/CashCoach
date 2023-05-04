@@ -3,10 +3,10 @@ import List from '../list/List';
 import Statistics from '../statistics/Statistics';
 import Calculator from '../calculator/Calculator';
 
-const WorkingArea = () => {
+const WorkingArea = ({getBool}: any) => {
     return (
         <div className="working-area">
-          <List />
+          <List changeBool={getBool}/>
           <Statistics />
           <Calculator />
         </div>
