@@ -20,23 +20,13 @@ const App = () => {
 		if (localStorage.getItem('token')) {
 			store.checkAuth();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [store]);
 
 	if (!store.isAuth) {
 		return (
 			<Header/>
 		)
 	}
-
-  	// const SendLinkButton = () => {
-	// 	return (
-	// 		<div>
-	// 			Активуйте акаунт
-	// 			<button onClick={() => store.sendLink()}>Отправить письмо</button>
-	// 		</div>			
-	// 	)
-	// }
 
 	return (
 		<div>

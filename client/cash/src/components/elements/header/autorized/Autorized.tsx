@@ -11,8 +11,8 @@ const Autorized = () => {
 		if (localStorage.getItem('token')) {
 			store.checkAuth();
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+
+	}, [store]);
 
     if (!store.isAuth) {
         return (

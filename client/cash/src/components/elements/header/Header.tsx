@@ -6,52 +6,96 @@ import moon from '../../../icons/dark_theme_icon.svg';
 import LoginForm from '../loginForm/LoginForm';
 import Autorized from './autorized/Autorized';
 
-const Header = () => {
+import { Component } from 'react';
 
-    let theme = true;
-    const switchTheme = () => {
-        if (theme) {
-            document.querySelector('.header__theme-switcher__switcher')?.classList.remove('header__theme-switcher__switcher_on');
-            theme = false;
-        } else {
-            document.querySelector('.header__theme-switcher__switcher')?.classList.add('header__theme-switcher__switcher_on');
-            theme = true;
-        }
-    }
+interface HeaderProps {}
 
-    const setEnglish = () => {
-        document.querySelector('.ua')?.classList.remove('header__language-switcher__item_active');
-        document.querySelector('.eng')?.classList.add('header__language-switcher__item_active');
-    }
-    const setUkrainian = () => {
-        document.querySelector('.eng')?.classList.remove('header__language-switcher__item_active');
-        document.querySelector('.ua')?.classList.add('header__language-switcher__item_active');
-    }
+interface HeaderState {
+	theme: boolean;
+}
 
-    return(
-        <header className="header">
-            <div className="header__wrapper">
-                <img src={logo} className="header__logo" alt='logo'/>
-                <div className="header__theme-switcher" onClick={() => switchTheme()}>
-                    <img src={moon} alt='moon'/>
-                    <img src={sun} alt='sun'/>
-                    <div className="header__theme-switcher__switcher header__theme-switcher__switcher_on"></div>
-                </div>
-            </div>
-           
-            <nav></nav>
+class Header extends Component<HeaderProps, HeaderState> {
+	constructor(props: HeaderProps) {
+		super(props);
 
-            <div className="header__wrapper">
-                <div className="header__language-switcher">
-                    <div className="ua header__language-switcher__item header__language-switcher__item_active" onClick={() => setUkrainian()}>UKR</div>
-                    <div className="header__divider"></div>
-                    <div className="eng header__language-switcher__item" onClick={() => setEnglish()}>ENG</div>
-                </div>              
-                <Autorized/>
-            </div>
-            <LoginForm></LoginForm>
-        </header>    
-    )
+		this.state = {
+			theme: true,
+		};
+	}
+
+	switchTheme = () => {
+		this.setState((prevState) => ({
+			theme: !prevState.theme,
+		}));
+	};
+
+	setEnglish = () => {
+		const uaItem = document.querySelector('.ua');
+		const engItem = document.querySelector('.eng');
+		if (uaItem) {
+			uaItem.classList.remove('header__language-switcher__item_active');
+		}
+		if (engItem) {
+			engItem.classList.add('header__language-switcher__item_active');
+		}
+	};
+
+	setUkrainian = () => {
+		const uaItem = document.querySelector('.ua');
+		const engItem = document.querySelector('.eng');
+		if (engItem) {
+			engItem.classList.remove('header__language-switcher__item_active');
+		}
+		if (uaItem) {
+			uaItem.classList.add('header__language-switcher__item_active');
+		}
+	};
+
+	render() {
+		const { theme } = this.state;
+
+		return (
+		<header className="header">
+			<div className="header__wrapper">
+				<img src={logo} className="header__logo" alt="logo" />
+				<div className="header__theme-switcher" onClick={this.switchTheme}>
+					<img src={moon} alt="moon" />
+					<img src={sun} alt="sun" />
+					<div
+					className={`header__theme-switcher__switcher ${
+						theme ? 'header__theme-switcher__switcher_on' : ''
+					}`}></div>
+				</div>
+			</div>
+
+			<nav></nav>
+
+			<div className="header__wrapper">
+				<div className="header__language-switcher">
+					<div
+					className={`ua header__language-switcher__item ${
+						theme ? '' : 'header__language-switcher__item_theme_dark'
+					} ${theme ? 'header__language-switcher__item_active' : ''}`}
+					onClick={this.setUkrainian}
+					>
+					UKR
+					</div>
+					<div className="header__divider"></div>
+					<div
+					className={`eng header__language-switcher__item ${
+						theme ? '' : 'header__language-switcher__item_theme_dark'
+					} ${!theme ? 'header__language-switcher__item_active' : ''}`}
+					onClick={this.setEnglish}
+					>
+					ENG
+					</div>
+				</div>
+				<Autorized />
+			</div>
+			<LoginForm />
+		</header>
+		);
+  	}
 }
 
 export default Header;
