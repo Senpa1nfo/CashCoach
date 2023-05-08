@@ -10,9 +10,6 @@ class MailService {
             auth: {
                 user: process.env.SMPT_USER,
                 pass: process.env.SMPT_PASSWORD
-            },
-            tls: { // Видалити у майбутньому
-                rejectUnauthorized: false
             }
         });
     }
